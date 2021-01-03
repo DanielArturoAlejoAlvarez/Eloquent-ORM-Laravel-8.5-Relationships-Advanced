@@ -56,4 +56,8 @@ class User extends Authenticatable
     public function location() {
         return $this->hasOneThrough(Location::class, Profile::class);
     }
+
+    public function posts() {
+        return $this->hasMany(Post::class);
+    }
 }
