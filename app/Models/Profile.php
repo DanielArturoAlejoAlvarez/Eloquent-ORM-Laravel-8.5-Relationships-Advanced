@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     use HasFactory;
+
+    public function location() {
+        return $this->hasOne(Location::class);
+    }
 }
