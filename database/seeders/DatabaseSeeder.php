@@ -37,6 +37,25 @@ class DatabaseSeeder extends Seeder
         \App\Models\Tag::factory(12)->create();
 
 
+        \App\Models\Post::factory(40)->create()->each(function($post) {
+            $post->image()->save(\App\Models\Location::factory()->make());
+            $post->tags()->attach($this->arrayNum(rand(1,12)));
+
+            $num_comments = rand(1,6);
+            for ($i=0; $i < $num_comments; $i++) { 
+                $post->comments()->save(\App\Models\Comment::factory()->make());
+            }
+        });
+
+        \App\Models\Video::factory(40)->create()->each(function($video) {
+            $video->image()->save(\App\Models\Location::factory()->make());
+            $video->tags()->attach($this->arrayNum(rand(1,12)));
+
+            $num_comments = rand(1,6);
+            for ($i=0; $i < $num_comments; $i++) { 
+                $video->comments()->save(\App\Models\Comment::factory()->make());
+            }
+        });
 
     }
 
