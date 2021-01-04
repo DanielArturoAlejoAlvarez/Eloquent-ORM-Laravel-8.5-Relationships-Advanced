@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
 
 
         \App\Models\User::factory(5)->create()->each(function($user) {
-            $profile = $user->profile()->save(\App\Models\User::factory()->make());
+            $profile = $user->profile()->save(\App\Models\Profile::factory()->make());
             $profile->location()->save(\App\Models\Location::factory()->make());
 
             $user->groups()->attach($this->arrayNum(rand(1,3)));
@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
 
 
         \App\Models\Post::factory(40)->create()->each(function($post) {
-            $post->image()->save(\App\Models\Location::factory()->make());
+            $post->image()->save(\App\Models\Image::factory()->make(['url'=>$this->getPic(rand(1,249))]));
             $post->tags()->attach($this->arrayNum(rand(1,12)));
 
             $num_comments = rand(1,6);
@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
         });
 
         \App\Models\Video::factory(40)->create()->each(function($video) {
-            $video->image()->save(\App\Models\Location::factory()->make());
+            $video->image()->save(\App\Models\Image::factory()->make(['url'=>$this->getPic(rand(250,500))]));
             $video->tags()->attach($this->arrayNum(rand(1,12)));
 
             $num_comments = rand(1,6);
@@ -62,7 +62,7 @@ class DatabaseSeeder extends Seeder
     private function arrayNum($max) {
         $values = [];
 
-        for ($i=0; $i < $max; $i++) { 
+        for ($i=1; $i < $max; $i++) { 
             $values[] = $i;
         }
 
