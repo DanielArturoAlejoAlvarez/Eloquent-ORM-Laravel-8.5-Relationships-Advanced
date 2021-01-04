@@ -18,3 +18,11 @@ Route::get('/', function () {
     $users = App\Models\User::get();
     return view('welcome', ['users'=>$users]);
 });
+
+Route::get('/profile/{id}', function($id) {
+    $user = App\Models\User::find($id);
+    //dd($user->name);
+    return view('profile', [
+        'user'  =>  $user
+    ]);
+})->name('profile');

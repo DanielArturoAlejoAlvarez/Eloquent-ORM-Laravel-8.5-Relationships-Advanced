@@ -4,8 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
-
+        <title>{{$user->name}}</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
         <!-- Fonts -->
@@ -20,69 +19,40 @@
             body {
                 font-family: 'Fira Sans';
             }
-            h1 {
-                font-size: 120px!important;
-                font-weight: 300;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                color: #314151;
-            }
-
-            .users {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                list-style-type: none;
-            }
-
-            .users li {
-                padding-right: 2rem;
-            }
-
-            .users li a {
-                font-size: 18px;
-                text-decoration: underline;
-            }
         </style>
     </head>
-    <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-            
+    <body">
+      
             <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <h1 class="text-center">Eloquent: ORM</h1>
-
-                        
-                    </div>
-
-                    <div class="col-12">
-                        <ul class="users">
-                            @foreach($users as $user)
-                                <li><a href="{{route('profile', $user->id)}}" >{{ $user->name }}</a></li>
-                            @endforeach
-                        </ul>
-                        
-                    </div>
-
+              <div class="row">
+                <div class="col-12 my-3 pt-3 shadow">
+                  <img src="{{$user->image->url}}" class="float-start rounded-circle mr-2">
+                  <h1>{{$user->name}}</h1>
+                  <h3>{{$user->email}}</h3>
+                  <p>
+                    <strong>INSTAGRAM: </strong> {{$user->profile->instagram}}<br />
+                    <strong>GITHUB: </strong> {{$user->profile->github}}<br />
+                    <strong>WEB: </strong> {{$user->profile->web}}                    
+                  </p>
+                  <p>
+                    <strong>COUNTRY:</strong> {{$user->location->country}}<br />
+                    <strong>LEVEL:</strong> @if($user->level) <a href="#">{{$user->level->name}}</a> @else --- @endif
+                  </p>
+                  <hr>
+                  <p>
+                    <strong>GROUP:</strong>
+                    @forelse($user->groups as $group)
+                      <span class="badge bg-primary">{{$group->name}}</span>
+                    @empty 
+                      <em>Does not belong to any group</em>
+                    @endforelse
+                  </p>
                 </div>
+              </div>
             </div>
 
-        </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script> 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
     </body>
 </html>
