@@ -23,8 +23,12 @@ Route::get('/profile/{id}', function($id) {
     $user = App\Models\User::find($id);    
     //dd($user->name);
     
-    $posts = $user->posts()->withCount('comments')->get();
-    $videos = $user->videos()->withCount('comments')->get();
+    $posts = $user->posts()
+    ->with('category','image','tags')
+    ->withCount('comments')->get();
+    $videos = $user->videos()
+    ->with('category','image','tags')
+    ->withCount('comments')->get();
 
     return view('profile', [
         'user'  =>  $user,

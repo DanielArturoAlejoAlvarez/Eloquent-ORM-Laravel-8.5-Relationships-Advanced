@@ -26,14 +26,16 @@
             <div class="container">
               <div class="row">
                 <div class="col-12 my-3 pt-3 shadow">
-                  <img src="{{$user->image->url}}" class="float-start rounded-circle mr-2">
-                  <h1>{{$user->name}}</h1>
-                  <h3>{{$user->email}}</h3>
-                  <p>
-                    <strong>INSTAGRAM: </strong> {{$user->profile->instagram}}<br />
-                    <strong>GITHUB: </strong> {{$user->profile->github}}<br />
-                    <strong>WEB: </strong> {{$user->profile->web}}                    
-                  </p>
+                  <img src="{{$user->image->url}}" class="float-start rounded-circle mr-2 mt-3">
+                  <div class="d-flex flex-column justify-content-between">
+                    <h1>{{$user->name}}</h1>
+                    <h3>{{$user->email}}</h3>
+                    <p>
+                      <strong>INSTAGRAM: </strong> {{$user->profile->instagram}}<br />
+                      <strong>GITHUB: </strong> {{$user->profile->github}}<br />
+                      <strong>WEB: </strong> {{$user->profile->web}}                    
+                    </p>
+                  </div>
                   <p>
                     <strong>COUNTRY:</strong> {{$user->location->country}}<br />
                     <strong>LEVEL:</strong> @if($user->level) <a href="#">{{$user->level->name}}</a> @else --- @endif
@@ -47,6 +49,8 @@
                       <em>Does not belong to any group</em>
                     @endforelse
                   </p>
+                
+                  
 
                   <hr>
 
@@ -56,25 +60,76 @@
                     @foreach($posts as $post)
                     <div class="col-6">
                       <div class="card mb-3">
-                        <div class="row">
+                        <div class="row g-0">
                           <div class="col-md-4">
                             <img src="{{$post->image->url}}" class="card-img">
                           </div>
                           <div class="col-md-8">
-                            <h5 class="card-title">
-                              {{$post->name}}
-                            </h5>
-                            <h6 class="card-subtitle text-muted">
-                              {{$post->category->name}} |
-                              {{$post->comments_count}}
-                              {{Str::plural('comment', $post->comments_count)}}
-                            </h6>
+                            <div class="card-body">
+                              <h5 class="card-title">
+                                {{$post->name}}
+                              </h5>
+                              <h6 class="card-subtitle text-muted">
+                                {{$post->category->name}} |
+                                {{$post->comments_count}}
+                                {{Str::plural('comment', $post->comments_count)}}
+                              </h6>
+
+                              <p class="card-text small">
+                                @foreach($post->tags as $tag)
+                                <span class="badge bg-light text-dark">
+                                  #{{$tag->name}}
+                                </span>
+                                @endforeach
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                     @endforeach
                   </div>
+
+                  <hr>
+
+                  <h3>Videos</h3>
+
+                  <div class="row">
+                    @foreach($videos as $video)
+                    <div class="col-6">
+                      <div class="card mb-3">
+                        <div class="row g-0">
+                          <div class="col-md-4">
+                            <img src="{{$video->image->url}}" class="card-img">
+                          </div>
+                          <div class="col-md-8">
+                            <div class="card-body">
+                              <h5 class="card-title">
+                                {{$video->name}}
+                              </h5>
+                              <h6 class="card-subtitle text-muted">
+                                {{$video->category->name}} |
+                                {{$video->comments_count}}
+                                {{Str::plural('comment', $video->comments_count)}}
+                              </h6>
+
+                              <p class="card-text small">
+                                @foreach($video->tags as $tag)
+                                <span class="badge bg-light text-dark">
+                                  #{{$tag->name}}
+                                </span>
+                                @endforeach
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    @endforeach
+                  </div>
+
+
+
                 </div>
               </div>
             </div>
