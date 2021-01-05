@@ -36,3 +36,21 @@ Route::get('/profile/{id}', function($id) {
         'videos'=>  $videos
     ]);
 })->name('profile');
+
+Route::get('/level/{id}', function($id) {
+    $level = App\Models\Level::find($id);    
+    //dd($level->name);
+    
+    $posts = $level->posts()
+    ->with('category','image','tags')
+    ->withCount('comments')->get();
+    $videos = $level->videos()
+    ->with('category','image','tags')
+    ->withCount('comments')->get();
+
+    return view('level', [
+        'level'  =>  $level,
+        'posts' =>  $posts,
+        'videos'=>  $videos
+    ]);
+})->name('level');
