@@ -47,6 +47,34 @@
                       <em>Does not belong to any group</em>
                     @endforelse
                   </p>
+
+                  <hr>
+
+                  <h3>Posts</h3>
+
+                  <div class="row">
+                    @foreach($posts as $post)
+                    <div class="col-6">
+                      <div class="card mb-3">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <img src="{{$post->image->url}}" class="card-img">
+                          </div>
+                          <div class="col-md-8">
+                            <h5 class="card-title">
+                              {{$post->name}}
+                            </h5>
+                            <h6 class="card-subtitle text-muted">
+                              {{$post->category->name}} |
+                              {{$post->comments_count}}
+                              {{Str::plural('comment', $post->comments_count)}}
+                            </h6>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    @endforeach
+                  </div>
                 </div>
               </div>
             </div>

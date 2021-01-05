@@ -20,9 +20,15 @@ Route::get('/', function () {
 });
 
 Route::get('/profile/{id}', function($id) {
-    $user = App\Models\User::find($id);
+    $user = App\Models\User::find($id);    
     //dd($user->name);
+    
+    $posts = $user->posts()->withCount('comments')->get();
+    $videos = $user->videos()->withCount('comments')->get();
+
     return view('profile', [
-        'user'  =>  $user
+        'user'  =>  $user,
+        'posts' =>  $posts,
+        'videos'=>  $videos
     ]);
 })->name('profile');
